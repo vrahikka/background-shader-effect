@@ -103,11 +103,11 @@ export default class Sketch {
 
   settings = () => {
     this.settings = {
-      rPhaseMult: 0,
-      gPhaseMult: 0,
+      rPhaseMult: 3.339,
+      gPhaseMult: 3.664,
       bPhaseMult: 0,
       rPhase: 0,
-      gPhase: 0,
+      gPhase: 3.26,
       bPhase: 0,
     };
     this.gui = new dat.GUI();
@@ -115,9 +115,9 @@ export default class Sketch {
     // phaseFolder.add(this.settings, 'rPhaseMult', 0.2, 20, 0.01);
     // phaseFolder.open();
 
-    this.gui.add(this.settings, 'rPhaseMult', 0, 5, 0.001);
-    this.gui.add(this.settings, 'gPhaseMult', 0, 5, 0.001);
-    this.gui.add(this.settings, 'bPhaseMult', 0, 5, 0.001);
+    this.gui.add(this.settings, 'rPhaseMult', 0, 10, 0.001);
+    this.gui.add(this.settings, 'gPhaseMult', 0, 10, 0.001);
+    this.gui.add(this.settings, 'bPhaseMult', 0, 10, 0.001);
     this.gui.add(this.settings, 'rPhase', 0, 2 * Math.PI, 0.01);
     this.gui.add(this.settings, 'gPhase', 0, 2 * Math.PI, 0.01);
     this.gui.add(this.settings, 'bPhase', 0, 2 * Math.PI, 0.01);
@@ -158,13 +158,13 @@ export default class Sketch {
     this.material.uniforms.u_bPhase.value = this.settings.bPhase;
     requestAnimationFrame(this.render);
     // THIS PART IS THE WAVES
-    // this.renderer.render(this.scene2, this.camera);
+    this.renderer.render(this.scene2, this.camera);
 
-    // this.renderer.setRenderTarget(this.baseTexture);
-    // this.renderer.render(this.scene, this.camera);
-    // this.material.uniforms.u_displacement.value = this.baseTexture.texture;
-    // this.renderer.setRenderTarget(null);
-    // this.renderer.clear();
+    this.renderer.setRenderTarget(this.baseTexture);
+    this.renderer.render(this.scene, this.camera);
+    this.material.uniforms.u_displacement.value = this.baseTexture.texture;
+    this.renderer.setRenderTarget(null);
+    this.renderer.clear();
     this.renderer.render(this.scene2, this.camera);
 
     this.meshes.forEach((mesh) => {
